@@ -1,0 +1,83 @@
+DataFrame, read_csv
+import matplotlib.pyplot as plt
+import pandas as pd
+import sys
+import matplotlib
+
+
+# In[14]:
+
+print('python version' +sys.version)
+print ('pandas ver ' +pd.__version__)
+print('Matplotlib ver' + matplotlib.__version__)
+
+
+# In[16]:
+
+names = ['Bib', 'Bub', 'Bob', 'Beb', 'Bab']
+births=[90,55,82,23,45]
+get_ipython().magic('pinfo zip')
+BabyDataSet =list(zip(names,births))
+BabyDataSet
+
+
+# In[ ]:
+
+
+
+
+# In[31]:
+
+df = pd.DataFrame(data = BabyDataSet, columns = ['Names', 'Births'])
+df
+df.to_csv('birthsfile.csv', index=False, header=False)
+Location = r'/tmp/mozilla_b107-040/birthsfile.csv'
+df=pd.read_csv(Location)
+
+
+# In[34]:
+
+df=pd.read_csv(Location,header = None )
+df=pd.read_csv(Location, names = ['Names', 'Births'])
+
+
+# In[35]:
+
+df 
+
+
+# In[36]:
+
+import os
+os.remove(Location)
+df.dtypes
+df.Births.dtype
+
+
+# In[39]:
+
+sorted = df.sort_values(['Births'], ascending = False)
+sorted.head(1)
+
+
+# In[38]:
+
+df ['Births'].max()
+
+
+# In[50]:
+
+
+df ['Births'].plot()
+MaxValue = df['Births'].max()
+MaxName = df['Names'][df['Births']==df['Births'].max()].values
+text = str(MaxValue) + "-" +MaxName
+text
+plt.annotate(text, xy=(1,MaxValue), xytext=(8,0), xycoords =('axes fraction', 'data'), textcoords = 'off set points')
+print("The most popular name")
+
+
+# In[51]:
+
+df[df['Births']==df['Births'].max()]
+
